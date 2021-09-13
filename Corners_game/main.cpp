@@ -22,22 +22,16 @@ int main()
     blackPawnSprite.setScale(1.4, 1.4);
     whitePawnSprite.setScale(1.4, 1.4);
 
-    class blackPawn : public sf::Sprite {
+    class pawn : public sf::Sprite {
     public:
         bool isMoving = false;  //флаг перетаскивания
         bool isInZone = false;  //флаг выполнения победных условий
         sf::Vector2f prevCoord; //вектор координат пешки на момент начала движения
     };
-    class whitePawn : public sf::Sprite {
-    public:
-        bool isMoving = false;  //флаг перетаскивания
-        bool isInZone = false;  //флаг выполнения победных условий
-        sf::Vector2f prevCoord; //вектор координат пешки на момент начала движения
-    };
-
-    blackPawn p1;
-    blackPawn bp[9];
-    whitePawn wp[9];
+    
+ 
+    pawn bp[9]; //черные пешки
+    pawn wp[9]; //белые пешки
 
     for (int i = 0; i <= 8; i++)
     {
@@ -65,12 +59,7 @@ int main()
             wp[i].setPosition(offset + squareSize * (5+i - 6), offset + squareSize*7);
     }
 
-    //p1.setTexture(blackPawnTexture);
-
-
-    //sf::FloatRect bounds = p1.getLocalBounds();
-    p1.setOrigin(p1.getLocalBounds().width/2, p1.getLocalBounds().height/2);
-    p1.setPosition(offset, offset);
+    
 
     float dx, dy;
 
@@ -83,10 +72,6 @@ int main()
             {
                 if (event.key.code == sf::Mouse::Left) 
                 {
-                    //std::cout<<p1.getGlobalBounds().top;
-                    //p1.setPosition(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
-                    //std::cout << sf::Mouse::getPosition(window).x << "," << sf::Mouse::getPosition(window).y << std::endl;
-
                     for (int i = 0; i <= 8; i++)
                     {
                         if (bp[i].getGlobalBounds().contains(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y))
@@ -195,9 +180,6 @@ int main()
 
         window.clear();
         window.draw(boardSprite);
-        //window.draw(whitePawnSprite);
-        //window.draw(blackPawnSprite);
-        //window.draw(p1);
         for (int i = 0; i <= 8; i++)
             window.draw(bp[i]);
         for (int i = 0; i <= 8; i++)
